@@ -51,17 +51,13 @@ This enables **lazy migration** — when a document is read, check `_schemaVersi
 ## `notes` collection
 
 **Path:** `/notes/{noteId}`
-**Access:** Owner-only (user can read/write their own document; admins can read all)
+**Access:** Owner-only
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `uid` | `string` | Yes | Firebase Auth UID (same as document ID) |
-| `title` | `string` | Yes | User's note title |
-| `body` | `string \| null` | Yes | User's note body |
-| `createdAt` | `string \| null` | Yes | When the document was created |
-| `updatedAt` | `'user' \| 'admin'` | Yes | When the document was last updated |
-| `deletedAt` | `'user' \| 'admin'` | Yes | When the document was deleted |
-| `_schemaVersion` | `Timestamp` | Yes | Schema version for lazy migration |
-
-**Creation:** Auto-created by `AuthProvider` on first sign-in via `syncUserProfile()`.
-**Deletion:** Hard-delete is disabled in security rules. Use `deletedAt` field for soft-delete.
+| `uid` | `string` | Yes | Owner's Firebase Auth UID |
+| `title` | `string` | Yes | Note title (1–200 chars) |
+| `body` | `string` | Yes | Note body (≤10 000 chars) |
+| `createdAt` | `Timestamp` | Yes | Creation time |
+| `updatedAt` | `Timestamp` | Yes | Last update time |
+| `_schemaVersion` | `1` | Yes | Schema version for lazy migration |
